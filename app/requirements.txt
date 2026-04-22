@@ -1,0 +1,2 @@
+# Utilizamos requirements, que es paralistar las dependencias
+# Especialmente para instalar todo lo necesario
