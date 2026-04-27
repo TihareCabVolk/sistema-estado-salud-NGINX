@@ -1,2 +1,3 @@
-# Utilizamos requirements, que es paralistar las dependencias
+# Utilizamos requirements, que es para listar las dependencias
 # Especialmente para instalar todo lo necesario
+Flask==3.1.3
