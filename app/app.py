@@ -11,7 +11,7 @@ bd = redis.Redis(host=redis_host, port=6379, decode_responses=True)
 
 # Inicializar cupos si no existen en la Base de Datos
 if not bd.exists('cupos'):
-    bd.set('cupos', 20)
+    bd.set('cupos', 200)
 
 
 # Configuración de las replicas
