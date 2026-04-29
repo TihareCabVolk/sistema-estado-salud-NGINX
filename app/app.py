@@ -69,7 +69,7 @@ def reserva():
         
         "atendido_por": IDreplica,
         "puert_interno": puerto_usado
-    }), 201
+    }), 200
 
 
 if __name__ == '__main__':
