@@ -60,8 +60,8 @@ def cancelar_reserva():
     nuevos_cupos = bd.incr('cupos')
 
     # No permite cupos negativos
-    if nuevos_cupos > 20:
-        bd.set('cupos', 20) 
+    if nuevos_cupos > 200:
+        bd.set('cupos', 200) 
         return jsonify({"error": "No hay reservas para cancelar, todos los cupos estan disponibles"}), 400
 
     return jsonify({
