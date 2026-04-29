@@ -21,13 +21,30 @@ async function cargarEstado() {
     }
 }
 
-// Función para el botón de reserva
+// Función para el botón de reserva (POST)
 async function hacerReserva() {
     try {
         await fetch('/reserva', { method: 'POST' });
         cargarEstado(); // Recargamos los datos inmediatamente
     } catch (error) {
         alert("Error al intentar reservar");
+    }
+}
+
+// Función para el botón de cancelar reserva (DELETE)
+async function cancelarReserva() {
+    try {
+        const response = await fetch('/reserva', { method: 'DELETE' });
+        
+        // Verificamos si hubo un error (como intentar cancelar cuando ya hay 20 cupos)
+        if (!response.ok) {
+            const data = await response.json();
+            alert(data.error); // Muestra el mensaje: "No hay reservas para cancelar..."
+        }
+        
+        cargarEstado(); // Recargamos los datos inmediatamente para ver la suma
+    } catch (error) {
+        alert("Error al intentar cancelar la reserva");
     }
 }
 

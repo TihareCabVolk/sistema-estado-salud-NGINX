@@ -6,7 +6,7 @@ import redis
 app = Flask(__name__)
 
 # Configuración del REDIS BD
-redis_host = os.environ.get('REDIS_HOST', 'localhost')
+redis_host = os.environ.get('REDIS_HOST', 'db_redis')
 bd = redis.Redis(host=redis_host, port=6379, decode_responses=True)
 
 # Inicializar cupos si no existen en la Base de Datos
@@ -16,18 +16,19 @@ if not bd.exists('cupos'):
 
 # Configuración de las replicas
 IDreplica = os.environ.get('HOSTNAME','replica_desconocida')
-puerto_usado = int(os.environ.get('PUERTO', 5000))
+puerto_usado = int(os.environ.get('PUERTO', 3000))
 
 # Ruta del Frontend
 @app.route('/', methods=['GET'])
 def index():
-    return render_template('index.hmtl')
+    return render_template('index.html')
 
 @app.route('/estado', methods=['GET'])
 def estado():
+    cupos_actuales = int(bd.get('cupos'))
     return jsonify({
-        "disponibilidad": True,
-        "cupos_restantes": 12,
+        "disponibilidad": cupos_actuales > 0,
+        "cupos_restantes": cupos_actuales,
         "mensaje": 'Atención disponible',
         "atendido_por_contenedor": IDreplica,
         "puerto_interno": puerto_usado
@@ -35,7 +36,7 @@ def estado():
 
 # Crear una reseerva, este quita un cupo
 @app.route('/reserva', methods=['POST'])
-def reserva():
+def crear_reserva():
     # decr es una operación atomica de Redis
     # resta 1 y devuelve el nuevo valor. 
     nuevos_cupos = bd.decr('cupos')
@@ -53,7 +54,7 @@ def reserva():
 
 # Cancelar una reserva, este suma una reserva
 @app.route('/reserva', methods=['DELETE'])
-def reserva():
+def cancelar_reserva():
     # incr es una operación atomica de Redis
     # suma 1 y devuelve el nuevo valor. 
     nuevos_cupos = bd.incr('cupos')
