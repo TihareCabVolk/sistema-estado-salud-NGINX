@@ -1,6 +1,12 @@
 version: '3.8'
 
 services:
+  # Capa de BD
+  db_redis:
+    image: redis:alpine
+    container_name: base_datos_salud
+
+  # Capa de Lógica
   replica_1:
     build: ./app
     environment:
@@ -20,6 +26,7 @@ services:
     ports:
       - "3003:3003"
   
+  # Capa de Red
   balanceador_carga_nginx:
     image: nginx:latest
     ports: 

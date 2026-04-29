@@ -1,3 +1,4 @@
 # Utilizamos requirements, que es para listar las dependencias
 # Especialmente para instalar todo lo necesario
 Flask==3.1.3
+redis==5.0.1

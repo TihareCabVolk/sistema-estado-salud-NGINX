@@ -13,5 +13,9 @@ git clone https://github.com/TihareCabVolk/sistema-estado-salud-NGINX.git
 # Entrar a la carpeta del proyecto
 cd sistema-estado-salud
 
-# Para ejecutar el codigo con Docker en la VM
+# Para ejecutar el codigo con Docker en la VM y tambien reconstruir la imagen del Docker
 docker compose up --build -d
+
+# Para ver los Logs de todos los contenedores
+docker compose logs -f
+
