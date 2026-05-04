@@ -1,22 +1,27 @@
-# sistema-estado-salud-NGINX
-Este repositorio se basa en el uso de NGINX para realizar un análisis y empleamiento de este.
+# Sistema de Estado de Salud - NGINX
 
-# Actualizar los repositorios
+Este repositorio demuestra el diseño y despliegue de una arquitectura de alta disponibilidad para un centro de salud, utilizando NGINX como balanceador de carga para distribuir el tráfico y evitar caídas del sistema.
+
+## Arquitectura del Sistema
+
+El sistema distribuye las peticiones equitativamente (algoritmo Round-Robin) entre múltiples réplicas de la aplicación, compartiendo una base de datos ultrarrápida.
+
+## Actualizar los repositorios
 sudo apt update
 
-# Instalar Git, Docker y Docker Compose
+## Instalar Git, Docker y Docker Compose
 sudo apt install -y git docker.io docker-compose-v2
 
-# Clonar el repositorio 
+## Clonar el repositorio 
 git clone https://github.com/TihareCabVolk/sistema-estado-salud-NGINX.git
 
-# Entrar a la carpeta del proyecto
+## Entrar a la carpeta del proyecto
 cd sistema-estado-salud
 
-# Para ejecutar el codigo con Docker en la VM y tambien reconstruir la imagen del Docker
+## Para ejecutar el codigo con Docker en la VM y tambien reconstruir la imagen del Docker
 docker compose up --build -d
 
-# Para ver los Logs de todos los contenedores
+## Para ver los Logs de todos los contenedores
 docker compose logs -f
 
 ```mermaid
@@ -30,3 +35,4 @@ graph TD
     C -->|Operaciones Atómicas| F[(Redis\nBase de Datos en Memoria)]
     D -->|Operaciones Atómicas| F
     E -->|Operaciones Atómicas| F
+
